@@ -1,15 +1,11 @@
-# Sử dụng image chính thức thay thế cho adoptopenjdk
-FROM eclipse-temurin:11-jre
+# Sử dụng base image Python nhẹ
+FROM python:3.9-slim
 
-# Khai báo cổng ứng dụng
-EXPOSE 8080
+# Thiết lập thư mục làm việc
+WORKDIR /app
 
-# Thiết lập biến môi trường cho thư mục ứng dụng
-ENV APP_HOME=/usr/src/app
-
-# Tạo thư mục ứng dụng và sao chép file .jar
-WORKDIR $APP_HOME
-COPY target/*.jar app.jar
+# Tạo file Python cho ứng dụng Hello World
+RUN echo "print('Hello, World!')" > hello.py
 
 # Thiết lập lệnh chạy ứng dụng
-CMD ["java", "-jar", "app.jar"]
+CMD ["python", "hello.py"]
